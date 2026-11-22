@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Shanii 💜</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, #4b2575, transparent 45%),
+                linear-gradient(135deg, #090014, #1b0b2e, #090014);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            color: #d8c7ff;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .screen {
+            width: 100%;
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 650px;
+            padding: 50px 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(130,70,200,0.35);
+            animation: appear 0.8s ease;
+        }
+
+        .small {
+            color: #c9b4e8;
+            letter-spacing: 3px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(42px, 9vw, 75px);
+            margin: 15px 0;
+            background: linear-gradient(90deg, #ffffff, #d8c7ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #ddd;
+            line-height: 1.7;
+        }
+
+        .button {
+            margin-top: 30px;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #8e5bd6, #c7b3e8);
+            color: #17052a;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(170,120,230,0.5);
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(200,160,255,0.8);
+        }
+
+        .heart {
+            font-size: 45px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .surprise {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        /* PHOTO GALLERY */
+
+        .gallery-card {
+            width: 94%;
+            max-width: 700px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(130,70,200,0.35);
+            animation: appear 0.8s ease;
+        }
+
+        .photo-frame {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            margin: 25px auto 20px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.35);
+            box-shadow: 0 0 30px rgba(170,120,230,0.35);
+            background: #12071d;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .caption {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #eee;
+            min-height: 60px;
+            padding: 0 10px;
+        }
+
+        .counter {
+            color: #c9b4e8;
+            margin-top: 15px;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .gallery-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-buttons .button {
+            margin-top: 20px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+body::before {
+    content: "💜   ✦   ✨   💜   ✦";
+    position: fixed;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    letter-spacing: 12px;
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+    animation: floatingDecor 4s ease-in-out infinite;
+}
+
+@keyframes floatingDecor {
+    0%, 100% {
+        transform: translate(-50%, 0);
+        opacity: 0.25;
+    }
+    50% {
+        transform: translate(-50%, -18px);
+        opacity: 0.6;
+    }
+}
+.card {
+    border: 1px solid rgba(210, 200, 230, 0.35);
+    box-shadow:
+        0 0 20px rgba(170, 140, 220, 0.18),
+        inset 0 0 20px rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+}
+
+.button {
+    box-shadow:
+        0 0 12px rgba(190, 170, 230, 0.25),
+        0 5px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+        0 0 22px rgba(220, 210, 245, 0.55),
+        0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.floating-star {
+    position: fixed;
+    color: #d8cfee;
+    font-size: 22px;
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+    animation: starFloat 4s ease-in-out infinite;
+}
+
+.star-one {
+    top: 25%;
+    left: 12%;
+}
+
+.star-two {
+    top: 40%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+.star-three {
+    bottom: 25%;
+    left: 18%;
+    animation-delay: 2s;
+}
+
+.star-four {
+    bottom: 15%;
+    right: 20%;
+    animation-delay: 3s;
+}
+
+@keyframes starFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.35;
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(20deg);
+        opacity: 0.8;
+    }
+}
+#confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.confetti {
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 16px;
+    background: #d8c7ff;
+    border-radius: 2px;
+    animation: confettiFall 3s linear forwards;
+}
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- STARS -->
+
+    <div class="stars">
+        <span class="star" style="top:10%; left:15%;">✦</span>
+        <span class="star" style="top:20%; left:80%;">✧</span>
+        <span class="star" style="top:75%; left:12%;">✦</span>
+        <span class="star" style="top:65%; left:88%;">✧</span>
+        <span class="star" style="top:35%; left:92%;">✦</span>
+        <span class="star" style="top:85%; left:70%;">✧</span>
+    </div>
+
+
+    <!-- SCREEN 1 -->
+
+    <section id="screen1" class="screen active">
+
+        <div class="card">
+
+            <div class="heart">💜</div>
+
+            <div class="small">
+                A little something for
+            </div>
+
+            <h1>Shanii</h1>
+
+            <div class="subtitle">
+                Before you continue...<br>
+                just know that someone put a little too much effort into this. 😂
+            </div>
+
+            <button class="button" onclick="nextScreen(2)">
+                🎁 Open Your Surprise
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SCREEN 2 -->
+
+    <section id="screen2" class="screen">
+
+        <div class="card">
+
+            <div class="surprise">🎉</div>
+
+            <div class="small">
+                Oh... you actually opened it
+            </div>
+
+            <h2>WAIT, SHANII! 😂</h2>
+
+            <div class="subtitle">
+                You thought that was the whole surprise?<br><br>
+                Nope. Not even close. 👀
+                <br><br>
+                This is just the beginning...
+            </div>
+
+            <button class="button" onclick="nextScreen(3)">
+                Okay... What's next? 👀
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SCREEN 3 -->
+
+    <section id="screen3" class="screen">
+
+        <div class="card">
+
+            <div class="surprise">💜</div>
+
+            <div class="small">
+                One important question
+            </div>
+
+            <h2>Are You Ready?</h2>
+
+            <div class="subtitle">
+                Because I've got memories,
+                messages and a few surprises waiting for you. 😂
+            </div>
+
+            <button class="button" onclick="nextScreen(4)">
+                YES, LET'S GO! 🚀
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SCREEN 4 -->
+
+    <section id="screen4" class="screen">
+
+        <div class="card">
+
+            <div class="surprise">🎂</div>
+
+            <div class="small">
+                And now...
+            </div>
+
+            <h1>Happy Birthday!</h1>
+
+            <div class="subtitle">
+                Welcome to your little birthday world, Shanii. 💜
+                <br><br>
+                But first... let's look at some memories. 📸
+            </div>
+
+            <button class="button" onclick="startGallery()">
+                📸 Our Memory Gallery
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PHOTO GALLERY -->
+
+    <section id="gallery" class="screen">
+
+        <div class="gallery-card">
+
+            <div class="small">
+                A few memories
+            </div>
+
+            <h2>📸 Shanii's Gallery</h2>
+
+            <div class="photo-frame">
+                <img id="galleryImage" src="" alt="Shanii">
+            </div>
+
+            <div class="caption" id="caption">
+            </div>
+
+            <div class="counter" id="counter">
+                1 / 15
+            </div>
+
+            <div class="gallery-buttons">
+
+                <button class="button" onclick="previousPhoto()">
+                    ← Previous
+                </button>
+
+                <button class="button" onclick="nextPhoto()">
+                    Next →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        function nextScreen(number) {
+
+            document.querySelectorAll(".screen").forEach(function(screen) {
+                screen.classList.remove("active");
+            });
+
+            document.getElementById("screen" + number).classList.add("active");
+if (number === 4) {
+    if (!window.bgMusic) {
+        window.bgMusic = new Audio("birthday.mp3");
+        window.bgMusic.loop = true;
+        window.bgMusic.volume = 0.5;
+    }
+
+    window.bgMusic.play();
+}
+if (number === 12) {
+    launchConfetti();
+}
+        }
+
+
+        /* PHOTO DATA */
+
+        const photos = [
+            "photos/shani (1).jpeg",
+            "photos/shani (1).png",
+            "photos/shani (2).jpeg",
+            "photos/shani (3).jpeg",
+            "photos/shani (4).jpeg",
+            "photos/shani (5).jpeg",
+            "photos/shani (6).jpeg",
+            "photos/shani (7).jpeg",
+            "photos/shani (8).jpeg",
+            "photos/shani (9).jpeg",
+            "photos/shani (10).jpeg",
+            "photos/shani (11).jpeg",
+            "photos/shani (12).jpeg",
+            "photos/shani (13).jpeg",
+            "photos/shani (14).jpeg"
+        ];
+
+
+        const captions = [
+            "Okay... starting with a good one. 😌",
+            "Yes, this one deserved to be here. 😂",
+            "One picture, one memory. 💜",
+            "Looking pretty decent, not gonna lie. 😭😂",
+            "A moment worth keeping.",
+            "Some pictures just have a different vibe. ✨",
+            "Another one for the memory collection. 📸",
+            "This one had to make the list. 💜",
+            "Just a little reminder of a good moment.",
+            "Okay Shanii... you actually look good here. 😂",
+            "Another memory saved. ✨",
+            "Because one picture was obviously not enough. 😭",
+            "Still adding these because why not? 😂",
+            "Almost at the end...",
+            "And this one is special. 💜"
+        ];
+
+
+        let currentPhoto = 0;
+
+
+        function startGallery() {
+
+            document.querySelectorAll(".screen").forEach(function(screen) {
+                screen.classList.remove("active");
+            });
+
+            document.getElementById("gallery").classList.add("active");
+
+            currentPhoto = 0;
+
+            showPhoto();
+        }
+
+
+        function showPhoto() {
+
+            document.getElementById("galleryImage").src = photos[currentPhoto];
+
+            document.getElementById("caption").textContent =
+                captions[currentPhoto];
+
+            document.getElementById("counter").textContent =
+                (currentPhoto + 1) + " / " + photos.length;
+        }
+
+
+        function nextPhoto() {
+
+            if (currentPhoto < photos.length - 1) {
+
+                currentPhoto++;
+
+                showPhoto();
+
+            } else {
+
+               
+
+    nextScreen(5);
+
+}
+
+            }
+        
+
+        function previousPhoto() {
+
+            if (currentPhoto > 0) {
+
+                currentPhoto--;
+
+                showPhoto();
+
+            }
+
+        }
+
+
+function launchConfetti() {
+    const container = document.getElementById("confetti-container");
+
+    for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "%";
+        confetti.style.animationDelay = Math.random() * 2 + "s";
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        container.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+}
+    </script>
+<section id="screen5" class="screen">
+
+    <div class="card">
+
+        <div class="surprise">😂</div>
+
+        <div class="small">
+            One thing I have learned about you...
+        </div>
+
+        <h2>
+            You're talented at getting naraz. 😭😂
+        </h2>
+
+        <div class="subtitle">
+            Tum naraz hone mein bhi talented ho. 😂
+            <br><br>
+
+            Aur phir obviously...
+            <br>
+
+            <strong>tumhein manana bhi meri duty hai. 😭😂</strong>
+
+            <br><br>
+
+            But honestly, I wouldn't change this friendship
+            for anything. 💜
+        </div>
+
+        <button class="button" onclick="nextScreen(6)">
+    😂 Okay, Next Surprise
+</button>
+    </div>
+
+</section>
+<section id="screen6" class="screen">
+
+    <div class="content">
+
+        <h1>💜 A Little Something From Me</h1>
+
+        <div class="message">
+            Shanii, honestly, thank you. 💜<br><br>
+
+            Thank you meri zindagi mein aane ke liye,
+            mera dost banne ke liye, meri itni saari baatein
+            sunne ke liye aur mujhe itna bardasht karne ke liye. 😂<br><br>
+
+            Tum mere pehle male friend ho, aur shayad isi liye
+            tumhari friendship mere liye thori zyada special hai. 💜<br><br>
+
+            Tum bohat honest aur real ho, aur mujhe ye baat
+            tumhare andar sabse achi lagti hai.
+        </div>
+
+        <button class="button" onclick="nextScreen(7)">
+            💌 There's More...
+        </button>
+
+    </div>
+
+</section>
+<section id="screen7" class="screen">
+
+    <div class="content">
+
+        <h1>🫶 You Know What?</h1>
+
+        <div class="message">
+            Mujhe acha lagta hai jab tum mujhse apni
+            baatein share karte ho. 💜<br><br>
+
+            Aur jab main kuch bhi bolti hoon,
+            tum genuinely meri baat sunte ho.
+            Ye choti si cheez hai, lekin mere liye
+            bohat matter karti hai. 🥹<br><br>
+
+            So... thank you for listening to me,
+            trusting me with your things,
+            aur meri random baatein patiently sunne ke liye. 😂💜
+        </div>
+
+        <button class="button" onclick="nextScreen(8)">
+            🎁 One Last Thing...
+        </button>
+
+    </div>
+
+</section>
+<section id="screen8" class="screen">
+
+    <div class="content">
+
+        <h1>😂 And Let's Not Forget...</h1>
+
+        <div class="message">
+            Tumhara larkiyon ki tarah naraz hona... 😭😂<br><br>
+
+            Phir mujhe tumhein manana padta hai,
+            jaise meri permanent duty lagi hui ho. 😂<br><br>
+
+            Kabhi kabhi sochti hoon...
+            <br><br>
+            <strong>“Bhai, naraz tum hue ho,
+            manana mujhe kyun pad raha hai?”</strong> 😭😂<br><br>
+
+            Lekin honestly...
+            ye bhi hamari friendship ka ek
+            permanent part ban chuka hai. 💜
+        </div>
+
+        <button class="button" onclick="nextScreen(9)">
+            💜 One More Surprise
+        </button>
+
+    </div>
+
+</section>
+<section id="screen9" class="screen">
+
+    <div class="content">
+
+        <h1>📸 Some Memories Are Just Different</h1>
+
+        <div class="message">
+            Har friendship mein kuch moments aise hote hain
+            jo simple hote hue bhi yaad reh jaate hain. 💜<br><br>
+
+            Hamari bhi bohat si random baatein,
+            hasi mazaak, narazgiyaan aur woh
+            “bas ek aur baat” wali conversations...
+            sab apni jagah special hain. 😂<br><br>
+
+            Shayad isi liye ye choti si website banani pari...
+            taake tumhein yaad rahe ke
+            <strong>tumhari friendship actually matters.</strong> 💜
+        </div>
+
+        <button class="button" onclick="nextScreen(10)">
+            🎂 The Birthday Message
+        </button>
+
+    </div>
+
+</section>
+<section id="screen10" class="screen">
+
+    <div class="content">
+
+        <h1>🎂 Happy Birthday, Shanii! 💜</h1>
+
+        <div class="message">
+
+            Bas thank you for being my friend. 💜<br><br>
+
+            Thank you meri zindagi mein aane ke liye,
+            mera dost banne ke liye,
+            meri baatein sunne ke liye,
+            aur mujhe itna bardasht karne ke liye. 😂<br><br>
+
+            Thank you for trusting me with your things,
+            mujhse apni baatein share karne ke liye,
+            aur har random conversation ka part banne ke liye. 🫶<br><br>
+
+            Tum mere pehle male friend ho,
+            aur honestly, I'm really glad
+            ke meri life mein tum jaisa dost hai. 💜<br><br>
+
+            I hope tumhara ye birthday
+            bohat saari happiness, success
+            aur amazing memories lekar aaye. 🎂✨<br><br>
+
+            <strong>
+                Stay honest. Stay real.
+                And please... thora kam naraz hua karo. 😂😭
+            </strong>
+
+        </div>
+
+        <button class="button" onclick="nextScreen(11)">
+            ✨ One Last Surprise...
+        </button>
+
+    </div>
+
+</section>
+<section id="screen11" class="screen">
+
+    <div class="content">
+
+        <h1>✨ One Last Thing...</h1>
+
+        <div class="message">
+
+            Shanii, life mein bohat se log milte hain...<br><br>
+
+            Kuch log sirf kuch waqt ke liye hote hain,
+            aur kuch log memories ka part ban jaate hain. 💜<br><br>
+
+            I don't know future mein kya hoga,
+            lekin I genuinely hope ke
+            hamari ye friendship hamesha achi rahe. 🫶<br><br>
+
+            Aur haan...
+            <strong>mujhe tumhari narazgiyaan bhi jhelni hain. 😂</strong><br><br>
+
+            So today, just remember one thing:
+
+            <br><br>
+
+            <strong>I'm really glad I met you. 💜</strong>
+
+        </div>
+
+        <button class="button" onclick="nextScreen(12)">
+            🎉 Open Your Final Surprise
+        </button>
+
+    </div>
+
+</section>
+<section id="screen12" class="screen">
+
+    <div class="content">
+
+        <h1>🎉 HAPPY BIRTHDAY, SHANII! 🎉</h1>
+
+        <div class="message">
+
+            🎂💜🥳✨
+
+            <br><br>
+
+            Today is all about YOU!
+
+            <br><br>
+
+            May you always have reasons to smile,
+            courage to achieve your dreams,
+            and happiness in every little moment.
+
+            <br><br>
+
+            Keep being the honest, real and
+            slightly dramatic person you are. 😂
+
+            <br><br>
+
+            **Stay blessed, stay happy,
+            and never stop being YOU!**
+
+            <br><br>
+
+            With lots of duas and best wishes,
+
+            <br><br>
+
+            **Your annoying best friend 😂💜**
+
+            <br><br>
+
+            <strong>HAPPY BIRTHDAY ONCE AGAIN! 🎂</strong>
+
+        </div>
+
+        <button class="button" onclick="nextScreen(1)">
+            🔁 Relive the Surprise
+        </button>
+
+    </div>
+
+</section>
+<div class="floating-star star-one">✦</div>
+<div class="floating-star star-two">✧</div>
+<div class="floating-star star-three">✦</div>
+<div class="floating-star star-four">⋆</div>
+<div id="confetti-container"></div>
+</body>
+</html>
